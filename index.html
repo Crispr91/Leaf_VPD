@@ -1,0 +1,676 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Leaf VPD Calculator</title>
+
+  <style>
+    :root{
+      --bg:#050607;
+      --panel:#0c0f12;
+      --text:#eaf7f6;
+      --muted:#8fbcbc;
+      --accent:#2fe6d6;
+      --stroke:rgba(47,230,214,.30);
+      --shadow: 0 18px 40px rgba(0,0,0,.6);
+      --radius:18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+
+      /* target band colors */
+      --low: rgba(47,230,214,.10);
+      --ok:  rgba(47,230,214,.22);
+      --high:rgba(47,230,214,.10);
+    }
+
+    body{
+      margin:0;
+      font-family:var(--sans);
+      background:
+        radial-gradient(1200px 700px at 50% -10%, rgba(47,230,214,.10), transparent 55%),
+        radial-gradient(900px 500px at 50% 115%, rgba(47,230,214,.07), transparent 45%),
+        var(--bg);
+      color:var(--text);
+      padding: 22px 16px 28px;
+    }
+
+    .top{
+      max-width: 860px;
+      margin: 0 auto 14px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+
+    h1{
+      margin: 0;
+      letter-spacing:.12em;
+      font-size: 20px;
+      color: var(--text);
+    }
+
+    .subhead{
+      margin-top:6px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:10px 12px;
+      border-radius:999px;
+      border: 2px solid rgba(47,230,214,.35);
+      background: rgba(12,15,18,.55);
+      font-family: var(--mono);
+      font-weight: 900;
+      letter-spacing:.10em;
+      color: var(--text);
+      user-select:none;
+    }
+
+    .seg{
+      display:inline-flex;
+      border-radius: 999px;
+      border: 2px solid rgba(47,230,214,.35);
+      overflow:hidden;
+      background: rgba(12,15,18,.55);
+    }
+
+    .seg button{
+      border:0;
+      background: transparent;
+      color: var(--muted);
+      padding:10px 12px;
+      cursor:pointer;
+      font-family: var(--mono);
+      font-weight: 900;
+      letter-spacing:.08em;
+    }
+
+    .seg button.on{
+      background: rgba(47,230,214,.18);
+      color: var(--accent);
+    }
+
+    .toggle{
+      width: 64px;
+      height: 34px;
+      border-radius:999px;
+      border: 2px solid rgba(47,230,214,.35);
+      background: rgba(47,230,214,.12);
+      position:relative;
+      cursor:pointer;
+    }
+    .toggle .knob{
+      position:absolute;
+      top:50%;
+      left:6px;
+      transform:translateY(-50%);
+      width: 24px;
+      height: 24px;
+      border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 10px 24px rgba(47,230,214,.22);
+      transition:left .18s ease;
+    }
+    .toggle[aria-pressed="true"] .knob{ left: 34px; }
+
+    .card{
+      max-width: 860px;
+      margin: 0 auto;
+      background: linear-gradient(180deg, rgba(12,15,18,.92), rgba(8,10,12,.75));
+      border: 2px solid rgba(47,230,214,.18);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+    }
+
+    .section-pill{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius:999px;
+      border:2px solid rgba(47,230,214,.55);
+      color: var(--accent);
+      background: rgba(12,15,18,.55);
+      font-family: var(--mono);
+      letter-spacing:.14em;
+      font-weight:900;
+      font-size: 12px;
+      margin-bottom: 14px;
+    }
+
+    .block{
+      background: rgba(8,10,12,.65);
+      border: 2px solid rgba(47,230,214,.14);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+
+    .labelrow{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap: 10px;
+    }
+    .labelrow label{
+      font-family: var(--mono);
+      letter-spacing:.08em;
+      font-weight:800;
+      color: var(--text);
+    }
+    .val{
+      color: var(--accent);
+      font-family: var(--mono);
+      font-weight: 900;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 140px;
+      gap: 10px;
+      align-items:center;
+      margin-top: 10px;
+    }
+
+    input[type="number"]{
+      width: 100%;
+      background: rgba(4,6,7,.7);
+      border: 2px solid rgba(47,230,214,.22);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-family: var(--mono);
+      font-size: 16px;
+    }
+
+    input[type="range"]{
+      width: 100%;
+      accent-color: var(--accent);
+    }
+
+    .small{
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-top: 6px;
+      line-height: 1.35;
+    }
+
+    .resultRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:baseline;
+      gap: 12px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+
+    #out{
+      margin: 0;
+      font-family: var(--mono);
+      font-size: 38px;
+      font-weight: 900;
+      color: var(--accent);
+      text-shadow: 0 0 18px rgba(47,230,214,.25);
+    }
+
+    .status{
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing:.10em;
+      font-weight: 900;
+      color: var(--muted);
+    }
+
+    .status b{ color: var(--accent); }
+
+    .bandWrap{
+      margin-top: 12px;
+    }
+
+    .bandTitle{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 10px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--muted);
+      letter-spacing:.08em;
+    }
+
+    .band{
+      position:relative;
+      height: 16px;
+      border-radius: 999px;
+      border: 2px solid rgba(47,230,214,.18);
+      overflow:hidden;
+      background: rgba(4,6,7,.7);
+      margin-top: 8px;
+    }
+
+    .band .low{ position:absolute; left:0; top:0; bottom:0; width: 33.333%; background: var(--low); }
+    .band .ok{ position:absolute; left:33.333%; top:0; bottom:0; width: 33.333%; background: var(--ok); }
+    .band .high{ position:absolute; left:66.666%; top:0; bottom:0; width: 33.333%; background: var(--high); }
+
+    .marker{
+      position:absolute;
+      top:-6px;
+      width: 2px;
+      height: 28px;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(47,230,214,.35);
+    }
+
+    .markerDot{
+      position:absolute;
+      top:-10px;
+      width: 10px;
+      height: 10px;
+      border-radius:50%;
+      background: var(--accent);
+      transform: translateX(-4px);
+      box-shadow: 0 0 14px rgba(47,230,214,.35);
+    }
+
+    @media (max-width: 640px){
+      .grid{ grid-template-columns:1fr; }
+      h1{ font-size: 18px; }
+      #out{ font-size: 32px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top">
+    <div>
+      <h1>LEAF VPD CALCULATOR</h1>
+      <div class="subhead">Calculates Leaf VPD using Air Temp + RH + Leaf Temp.</div>
+    </div>
+
+    <div class="controls">
+      <!-- Phase Preset -->
+      <div class="seg" title="Phase preset">
+        <button id="phaseSeedling" class="on">SEEDLING/RECOVERY</button>
+        <button id="phaseVeg">VEG</button>
+        <button id="phaseGen">GENERATIVE</button>
+      </div>
+
+      <!-- Day/Night Toggle -->
+      <div class="pill">
+        <span>DAY</span>
+        <button id="modeToggle" class="toggle" aria-pressed="false" title="Day / Night">
+          <span class="knob"></span>
+        </button>
+        <span>NIGHT</span>
+      </div>
+
+      <!-- °F/°C -->
+      <div class="seg" title="Temperature units">
+        <button id="fBtn" class="on">°F</button>
+        <button id="cBtn">°C</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-pill">ENVIRONMENTAL PARAMETERS</div>
+
+    <!-- AIR TEMP -->
+    <div class="block">
+      <div class="labelrow">
+        <label>Air Temp</label>
+        <div class="val" id="airLabel">75.0°F</div>
+      </div>
+      <div class="grid">
+        <input id="air_range" type="range" min="60" max="90" step="0.1" value="75">
+        <input id="air_num" type="number" step="0.1" value="75">
+      </div>
+      <div class="small">The temperature of the air circulating in the grow space around the plants</div>
+    </div>
+
+    <!-- LEAF TEMP -->
+    <div class="block">
+      <div class="labelrow">
+        <label>Leaf Temp</label>
+        <div class="val" id="leafLabel">75.0°F</div>
+      </div>
+      <div class="grid">
+        <input id="leaf_range" type="range" min="60" max="90" step="0.1" value="75">
+        <input id="leaf_num" type="number" step="0.1" value="75">
+      </div>
+      <div class="small">Use an IR thermometer to measure leaf-surface temperature (Nerds: it's a proxy for the temperature of the air inside the leaf)</div>
+
+      <!-- Leaf–Air delta cue -->
+      <div class="small" id="deltaCue" style="margin-top:10px;">
+        Leaf–Air ΔT: <span id="deltaVal" style="color:var(--accent);font-weight:900;">0.0°F</span>
+        <span id="deltaNote" style="margin-left:8px;color:var(--muted);"></span>
+        <div id="deltaAction" style="margin-top:6px;color:var(--muted);"></div>
+      </div>
+    </div>
+
+    <!-- RH -->
+    <div class="block">
+      <div class="labelrow">
+        <label>Relative Humidity</label>
+        <div class="val" id="rhLabel">60%</div>
+      </div>
+      <div class="grid">
+        <input id="rh_range" type="range" min="20" max="90" step="1" value="60">
+        <input id="rh_num" type="number" min="0" max="100" step="1" value="60">
+      </div>
+      <div class="small">You can use a hygrometer to find this value (Nerds: how full the surrounding air is with water relative to how much it could hold at its current temperature).</div>
+    </div>
+
+    <div class="resultRow">
+      <div>
+        <h2 style="margin:0; font-family:var(--mono); letter-spacing:.10em; color:var(--muted); font-size:12px;">RESULT</h2>
+        <p id="out">—</p>
+      </div>
+      <div class="status" id="status">TARGET: <b>—</b></div>
+    </div>
+
+    <div class="bandWrap">
+      <div class="bandTitle">
+        <div>VPD BAND (kPa)</div>
+        <div id="bandText">—</div>
+      </div>
+
+      <div class="band" id="band">
+        <div class="low"></div>
+        <div class="ok"></div>
+        <div class="high"></div>
+        <div class="markerDot" id="markerDot"></div>
+        <div class="marker" id="marker"></div>
+      </div>
+      <div class="small" id="bandHint">Low / Good / High targets depend on Phase + Day/Night.</div>
+    </div>
+  </div>
+
+  <script>
+    // ---------- core physics ----------
+    function fToC(f){ return (f - 32) * 5/9; }
+    function cToF(c){ return c * 9/5 + 32; }
+
+    function svp_kpa(tempC){
+      return 0.6108 * Math.exp((17.27 * tempC) / (tempC + 237.3));
+    }
+
+    // Leaf VPD (kPa) = SVP(leaf) - AVP(air) where AVP(air) = RH * SVP(air)
+    function leafVpd_kpa(leafC, airC, rh){
+      return svp_kpa(leafC) - (rh/100) * svp_kpa(airC);
+    }
+
+    // ---------- state ----------
+    let unit = "F";         // "F" or "C"
+    let isNight = false;    // false=day, true=night
+    let phase = "seedling"; // "seedling" | "veg" | "gen"
+
+    // ---------- phase presets (tune later if you want) ----------
+    const phaseTargets = {
+      seedling: {
+        day:   { low: 0.50, high: 0.85 },
+        night: { low: 0.35, high: 0.60 }
+      },
+      veg: {
+        day:   { low: 0.85, high: 1.25 },
+        night: { low: 0.60, high: 0.90 }
+      },
+      gen: {
+        day:   { low: 1.15, high: 1.55 },
+        night: { low: 0.80, high: 1.10 }
+      }
+    };
+
+    // Band bar scale
+    const bandMin = 0.0;
+    const bandMax = 2.5;
+
+    // ---------- elements ----------
+    const airRange = document.getElementById("air_range");
+    const airNum   = document.getElementById("air_num");
+    const airLabel = document.getElementById("airLabel");
+
+    const leafRange = document.getElementById("leaf_range");
+    const leafNum   = document.getElementById("leaf_num");
+    const leafLabel = document.getElementById("leafLabel");
+
+    const rhRange = document.getElementById("rh_range");
+    const rhNum   = document.getElementById("rh_num");
+    const rhLabel = document.getElementById("rhLabel");
+
+    const out = document.getElementById("out");
+    const status = document.getElementById("status");
+    const bandText = document.getElementById("bandText");
+
+    const marker = document.getElementById("marker");
+    const markerDot = document.getElementById("markerDot");
+
+    const modeToggle = document.getElementById("modeToggle");
+    const fBtn = document.getElementById("fBtn");
+    const cBtn = document.getElementById("cBtn");
+
+    const phaseSeedling = document.getElementById("phaseSeedling");
+    const phaseVeg = document.getElementById("phaseVeg");
+    const phaseGen = document.getElementById("phaseGen");
+
+    // Delta elements
+    const deltaVal = document.getElementById("deltaVal");
+    const deltaNote = document.getElementById("deltaNote");
+    const deltaAction = document.getElementById("deltaAction");
+
+    // ---------- helpers ----------
+    function clamp(v, min, max){ return Math.min(Math.max(v, min), max); }
+
+    function setUnit(next){
+      if(next === unit) return;
+
+      const airVal = parseFloat(airNum.value);
+      const leafVal = parseFloat(leafNum.value);
+
+      if(next === "C"){
+        const airC = fToC(airVal);
+        const leafC = fToC(leafVal);
+
+        unit = "C";
+        fBtn.classList.remove("on");
+        cBtn.classList.add("on");
+
+        airRange.min = fToC(60).toFixed(1);
+        airRange.max = fToC(90).toFixed(1);
+        leafRange.min = fToC(60).toFixed(1);
+        leafRange.max = fToC(90).toFixed(1);
+
+        airRange.value = airC.toFixed(1);
+        airNum.value = airC.toFixed(1);
+        leafRange.value = leafC.toFixed(1);
+        leafNum.value = leafC.toFixed(1);
+      } else {
+        const airF = cToF(airVal);
+        const leafF = cToF(leafVal);
+
+        unit = "F";
+        cBtn.classList.remove("on");
+        fBtn.classList.add("on");
+
+        airRange.min = "60";
+        airRange.max = "90";
+        leafRange.min = "60";
+        leafRange.max = "90";
+
+        airRange.value = airF.toFixed(1);
+        airNum.value = airF.toFixed(1);
+        leafRange.value = leafF.toFixed(1);
+        leafNum.value = leafF.toFixed(1);
+      }
+
+      update();
+    }
+
+    function syncRangeToNumber(rangeEl, numEl){
+      numEl.value = rangeEl.value;
+      update();
+    }
+
+    function syncNumberToRange(numEl, rangeEl){
+      const v = parseFloat(numEl.value);
+      const min = parseFloat(rangeEl.min);
+      const max = parseFloat(rangeEl.max);
+      const c = clamp(v, min, max);
+      numEl.value = c;
+      rangeEl.value = c;
+      update();
+    }
+
+    function setPhase(next){
+      phase = next;
+      phaseSeedling.classList.toggle("on", phase === "seedling");
+      phaseVeg.classList.toggle("on", phase === "veg");
+      phaseGen.classList.toggle("on", phase === "gen");
+      update();
+    }
+
+    function currentTargets(){
+      const p = phaseTargets[phase];
+      return isNight ? p.night : p.day;
+    }
+
+    function classify(vpd, t){
+      if(vpd < t.low) return "LOW";
+      if(vpd > t.high) return "HIGH";
+      return "GOOD";
+    }
+
+    function markerLeftPct(vpd){
+      const pct = ((vpd - bandMin) / (bandMax - bandMin)) * 100;
+      return clamp(pct, 0, 100);
+    }
+
+    function phaseLabel(){
+      if(phase === "seedling") return "SEEDLING/RECOVERY";
+      if(phase === "veg") return "VEG";
+      return "GENERATIVE";
+    }
+
+    // Delta messaging + actionable hint
+    function updateDeltaCue(leaf, air){
+      const d = leaf - air;            // signed
+      const absd = Math.abs(d);
+
+      // Value + coupling note
+      if(unit === "F"){
+        deltaVal.textContent = `${d.toFixed(1)}°F`;
+        if(absd <= 1.0){
+          deltaNote.textContent = "Coupled (leaf ~ air)";
+        } else if(absd <= 3.0){
+          deltaNote.textContent = "Moderately decoupled";
+        } else {
+          deltaNote.textContent = "Strongly decoupled (leaf ≠ air)";
+        }
+      } else {
+        deltaVal.textContent = `${d.toFixed(1)}°C`;
+        if(absd <= 0.6){
+          deltaNote.textContent = "Coupled (leaf ~ air)";
+        } else if(absd <= 1.7){
+          deltaNote.textContent = "Moderately decoupled";
+        } else {
+          deltaNote.textContent = "Strongly decoupled (leaf ≠ air)";
+        }
+      }
+
+      // Action (only when decoupled enough to matter)
+      const coupled =
+        (unit === "F" && absd <= 1.0) ||
+        (unit === "C" && absd <= 0.6);
+
+      if(coupled){
+        deltaAction.textContent = "";
+        return;
+      }
+
+      if(d < 0){
+        // Leaf cooler than air
+        deltaAction.textContent =
+          "Leaf is cooler → leaf VPD is LOWER than you’d guess from air temp. Reduce the gap with more airflow, slightly lower RH, or slightly higher air temp.";
+      } else {
+        // Leaf warmer than air
+        deltaAction.textContent =
+          "Leaf is warmer → leaf VPD is HIGHER than you’d guess from air temp. Reduce the gap with higher RH, less airflow, or slightly lower air temp.";
+      }
+    }
+
+    // ---------- main update ----------
+    function update(){
+      const air = parseFloat(airNum.value);
+      const leaf = parseFloat(leafNum.value);
+      const rh = parseFloat(rhNum.value);
+
+      airLabel.textContent = `${air.toFixed(1)}°${unit}`;
+      leafLabel.textContent = `${leaf.toFixed(1)}°${unit}`;
+      rhLabel.textContent = `${rh.toFixed(0)}%`;
+
+      updateDeltaCue(leaf, air);
+
+      const airC  = unit === "F" ? fToC(air) : air;
+      const leafC = unit === "F" ? fToC(leaf) : leaf;
+
+      const vpd = leafVpd_kpa(leafC, airC, rh);
+      out.textContent = `Leaf VPD: ${vpd.toFixed(2)} kPa`;
+
+      const t = currentTargets();
+      const statusWord = classify(vpd, t);
+
+      status.innerHTML =
+        `PHASE: <b>${phaseLabel()}</b> • MODE: <b>${isNight ? "NIGHT" : "DAY"}</b> • TARGET: <b>${statusWord}</b>`;
+
+      bandText.textContent = `${t.low.toFixed(2)}–${t.high.toFixed(2)} kPa`;
+
+      const left = markerLeftPct(vpd);
+      marker.style.left = `${left}%`;
+      markerDot.style.left = `${left}%`;
+    }
+
+    // ---------- events ----------
+    airRange.addEventListener("input", () => syncRangeToNumber(airRange, airNum));
+    airNum.addEventListener("input",   () => syncNumberToRange(airNum, airRange));
+
+    leafRange.addEventListener("input", () => syncRangeToNumber(leafRange, leafNum));
+    leafNum.addEventListener("input",   () => syncNumberToRange(leafNum, leafRange));
+
+    rhRange.addEventListener("input", () => syncRangeToNumber(rhRange, rhNum));
+    rhNum.addEventListener("input",   () => syncNumberToRange(rhNum, rhRange));
+
+    fBtn.addEventListener("click", () => setUnit("F"));
+    cBtn.addEventListener("click", () => setUnit("C"));
+
+    modeToggle.addEventListener("click", () => {
+      const pressed = modeToggle.getAttribute("aria-pressed") === "true";
+      modeToggle.setAttribute("aria-pressed", String(!pressed));
+      isNight = !pressed;
+      update();
+    });
+
+    phaseSeedling.addEventListener("click", () => setPhase("seedling"));
+    phaseVeg.addEventListener("click", () => setPhase("veg"));
+    phaseGen.addEventListener("click", () => setPhase("gen"));
+
+    // init
+    setPhase("seedling");
+    update();
+  </script>
+</body>
+</html>
