@@ -3,15 +3,149 @@
 <head>
   <meta charset="utf-8">
   <title>Mainely AG</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    :root{
+      --bg:#050607;
+      --panel:#0c0f12;
+      --text:#eaf7f6;
+      --muted:#8fbcbc;
+      --accent:#2fe6d6;
+      --border:rgba(47,230,214,.25);
+      --radius:18px;
+      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:var(--sans);
+      padding:40px 20px;
+    }
+
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+    }
+
+    header{
+      margin-bottom:48px;
+    }
+
+    h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.25em;
+    }
+
+    .tagline{
+      margin-top:12px;
+      max-width:680px;
+      font-family:var(--mono);
+      font-size:13px;
+      line-height:1.5;
+      color:var(--muted);
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:24px;
+    }
+
+    .card{
+      background:linear-gradient(180deg,rgba(12,15,18,.95),rgba(8,10,12,.75));
+      border:2px solid var(--border);
+      border-radius:var(--radius);
+      padding:24px;
+      text-decoration:none;
+      color:inherit;
+      transition:transform .15s ease, border-color .15s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-3px);
+      border-color:var(--accent);
+    }
+
+    .card h2{
+      margin:0 0 10px 0;
+      font-family:var(--mono);
+      font-size:15px;
+      letter-spacing:.14em;
+      color:var(--accent);
+    }
+
+    .card p{
+      margin:0;
+      font-size:14px;
+      line-height:1.45;
+      color:var(--muted);
+    }
+
+    footer{
+      margin-top:64px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      font-family:var(--mono);
+      font-size:12px;
+      color:var(--muted);
+      opacity:.7;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="wrap">
 
-<h1>Mainely AG</h1>
-<p>Plant physiology tools</p>
+    <header>
+      <h1>MAINELY AG</h1>
+      <div class="tagline">
+        Practical plant-physiology tools for controlled environments.<br>
+        Built for growers who care about mechanisms, not mythology.
+      </div>
+    </header>
 
-<ul>
-  <li><a href="vpd.html">VPD Calculator</a></li>
-</ul>
+    <section class="grid">
 
+      <a class="card" href="vpd.html">
+        <h2>VPD CALCULATOR</h2>
+        <p>
+          Leaf-based vapor pressure deficit using air temperature,
+          leaf temperature, and relative humidity.
+          Phase-aware targets grounded in real plant physiology.
+        </p>
+      </a>
+
+      <a class="card" href="fertilizer-mixer.html">
+        <h2>FERTILIZER MIXER</h2>
+        <p>
+          Combine multiple fertilizer inputs and calculate final N-P-K
+          values using proper weighted averages.
+          Built for real-world mixing, not label math.
+        </p>
+      </a>
+
+      <a class="card" href="fertilizer-predictor.html">
+        <h2>FERTILIZER PREDICTOR</h2>
+        <p>
+          Predict nutrient outcomes from target ratios and inputs.
+          Designed to explore feed strategies before they hit the plants.
+        </p>
+      </a>
+
+    </section>
+
+    <footer>
+      <span>Mainely AG</span>
+      <span>Less is More • Scarcity Optimizes Biological Systems</span>
+    </footer>
+
+  </div>
 </body>
 </html>
