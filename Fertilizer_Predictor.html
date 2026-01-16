@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Fertilizer Blend Solver</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ADD THIS -->
+  <link rel="stylesheet" href="fertilizer_predictor.css">
+</head>
+
+<body>
+
+<div class="wrap">
+  <div class="card">
+    <header>
+      <div>
+        <h1>Fertilizer Blend Solver</h1>
+        <div class="sub">
+          Enter your fertilizers (analysis %). Set a target blend (e.g., 3-5-3). Click <b>Solve</b> to get best-fit grams of each fertilizer.
+        </div>
+      </div>
+    </header>
+
+    <div class="controls">
+      <div class="left">
+        <label title="Adds the remaining essential micronutrients (Mn, Zn, Cu, B, Mo, Cl, Ni).">
+          <input type="checkbox" id="chkAll"/>
+          Show all nutrients (micros)
+        </label>
+
+        <label title="Adds a tiny stabilizer so solutions don't get weird with nearly-identical fertilizers.">
+          <input type="checkbox" id="chkRegularize" checked/>
+          Prefer simpler mixes
+        </label>
+      </div>
+
+      <div class="right">
+        <button class="ghost" id="btnAddRow">+ Add fertilizer</button>
+        <button class="ghost" id="btnExample">Load example</button>
+        <button class="danger" id="btnReset">Reset</button>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="row">
+        <div class="rowTitle">Total blend mass</div>
+        <div class="rowInputs">
+          <input id="inpTotal" type="number" min="0" step="0.01" placeholder="e.g. 1000"/>
+          <select id="selTotalUnit">
+            <option value="g">g</option>
+            <option value="kg">kg</option>
+            <option value="oz">oz</option>
+            <option value="lb">lb</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div class="rowTitle">Target blend (set only what you care about)</div>
+        <div class="mini">
+          Leave a target blank to ignore that nutrient. Example: set N, P2O5, K2O only.
+        </div>
+      </div>
+
+      <div id="targetGrid" class="targetGrid"></div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="solvebar">
+      <button id="btnSolve">Solve</button>
+      <div class="statusPill" id="pillStatus">Not solved</div>
+    </div>
+
+    <div class="results">
+      <div class="box">
+        <div class="lbl">Solution (grams of each fertilizer)</div>
+        <div class="out" id="outSolution">—</div>
+      </div>
+
+      <div class="box">
+        <div class="lbl">Resulting blend (what you actually get)</div>
+        <div class="out" id="outAchieved">—</div>
+      </div>
+
+      <div class="box">
+        <div class="lbl">Fit quality</div>
+        <div class="out" id="outFit">—</div>
+      </div>
+
+      <div class="box">
+        <div class="lbl">Notes / Suggestions</div>
+        <div class="out" id="outNotes">—</div>
+      </div>
+    </div>
+
+    <div class="status" id="status"></div>
+  </div>
+</div>
+
+<!-- ADD THIS -->
+<script src="fertilizer_predictor.js"></script>
+
+</body>
+</html>
