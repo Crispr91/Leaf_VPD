@@ -1,0 +1,71 @@
+<div class="wrap">
+  <div class="card">
+    <header>
+      <div>
+        <h1>Fertilizer Blend Nutrient Calculator</h1>
+        <div class="sub">
+          Rows = fertilizers. Columns = nutrients. Enter each fertilizer’s analysis (%) and how much you’re using.
+          Default shows common nutrients. Toggle “Show all nutrients” to add the rest.
+        </div>
+      </div>
+    </header>
+
+    <div class="controls">
+      <div class="left">
+        <label title="Adds the remaining essential micros (Mn, Zn, Cu, B, Mo, Cl, Ni).">
+          <input type="checkbox" id="chkAll"/>
+          Show all nutrients (micros)
+        </label>
+        <div class="mini">Tip: Start typing in the last row and it auto-adds another.</div>
+      </div>
+      <div class="right">
+        <button class="ghost" id="btnAddRow">+ Add row</button>
+        <button class="ghost" id="btnExample">Load example</button>
+        <button class="danger" id="btnReset">Reset</button>
+      </div>
+    </div>
+
+    <div class="tablewrap">
+      <table>
+        <thead id="thead"></thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <div class="results">
+      <div class="box">
+        <div class="lbl">Total blend mass</div>
+
+        <!-- Keeps your UI, just adds a unit selector beside the number -->
+        <div style="display:grid;grid-template-columns:1fr 140px;gap:10px;align-items:center;">
+          <div class="val" id="kpiTotal">0.00 g</div>
+          <select id="selMassUnit" title="Display unit (internal math stays in grams).">
+            <option value="g">g</option>
+            <option value="kg">kg</option>
+            <option value="oz">oz</option>
+            <option value="lb">lb</option>
+          </select>
+        </div>
+
+        <div class="lbl" style="margin-top:10px;">Final blend analysis (% by weight)</div>
+        <div class="out" id="outPct">—</div>
+      </div>
+
+      <div class="box">
+        <div class="lbl">Totals (grams of each nutrient)</div>
+        <div class="out" id="outG">—</div>
+        <div class="lbl" style="margin-top:10px;">Optional ppm (mg/L)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px;">
+          <input id="inpVol" type="number" min="0" step="0.01" placeholder="Final volume (e.g. 1)"/>
+          <select id="selVolUnit">
+            <option value="gal">US gallons</option>
+            <option value="L">Liters</option>
+          </select>
+        </div>
+        <div class="out" id="outPpm" style="margin-top:8px;">Enter a volume to see ppm.</div>
+      </div>
+    </div>
+
+    <div class="status" id="status"></div>
+  </div>
+</div>
