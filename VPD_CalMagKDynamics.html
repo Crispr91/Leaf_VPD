@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>VPD × Transpiration Pull</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="VPD_CalMagKDynamics.css">
+</head>
+
+<body>
+
 <div class="wrap">
   <div class="card">
 
@@ -29,15 +43,7 @@
 
       <div id="meterText">—</div>
 
-      <!-- VPD value readout -->
-      <div class="vpdReadout" id="vpdReadout"></div>
-
-      <!-- Ca / Mg / K notes (populated by JS based on VPD range) -->
-      <div class="ionNotes" id="ionNotes">
-        <div class="ion ca"><b>Ca:</b> —</div>
-        <div class="ion mg"><b>Mg:</b> —</div>
-        <div class="ion k"><b>K:</b> —</div>
-      </div>
+      <div class="ionNotes" id="ionNotes"></div>
     </div>
 
     <div class="controls">
@@ -56,3 +62,9 @@
 
   </div>
 </div>
+
+<!-- JS -->
+<script src="VPD_CalMagKDynamics.js"></script>
+
+</body>
+</html>
