@@ -29,7 +29,15 @@
 
       <div id="meterText">—</div>
 
-      <div class="ionNotes" id="ionNotes"></div>
+      <!-- VPD value readout -->
+      <div class="vpdReadout" id="vpdReadout"></div>
+
+      <!-- Ca / Mg / K notes (populated by JS based on VPD range) -->
+      <div class="ionNotes" id="ionNotes">
+        <div class="ion ca"><b>Ca:</b> —</div>
+        <div class="ion mg"><b>Mg:</b> —</div>
+        <div class="ion k"><b>K:</b> —</div>
+      </div>
     </div>
 
     <div class="controls">
