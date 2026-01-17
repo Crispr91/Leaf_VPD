@@ -22,18 +22,18 @@ function leafVPD(tempF, rh){
 // Stage thresholds (unchanged)
 const STAGES = {
   seedling: { low:0.85, elev:1.15 },
-  veg:      { low:0.90, elev:1.25 },
+  veg:      { low:0.90, elev:1.35 },
   flower:   { low:1.15, elev:1.60 }
 };
 
 // ✅ Updated notes reflecting regulation + distribution effects
 const NOTES = {
   LOW: `
-    <b>Ca:</b> Delivery limited by low xylem mass flow<br>
-    <b>Mg:</b> Flux reduced; uptake may lag behind growth demand<br>
+    <b>Ca:</b> Delivery limited by reduced transpiration <br>
+    <b>Mg:</b> Uptake may lag behind growth demand due to weak transpiration stream. Plant relies more on internal stores <br>
     <b>K:</b> Largely unaffected due to high mobility
   `,
-  ELEVATED: `
+  INTERMEDIATE/TARGET FOR HEALTHY PLANTS: `
     <b>Transpiration regulation increases.</b><br>
     The plant begins actively managing hydraulic flow to maintain stability.<br>
     <b>Ca:</b> Delivery becomes more dependent on local transpiration rates<br>
@@ -41,9 +41,9 @@ const NOTES = {
     <b>K:</b> Mobile buffering maintains function
   `,
   EXCESSIVE: `
-    <b>Ca:</b> Delivery failure likely due to hydraulic bottlenecks<br>
-    <b>Mg:</b> Flux-limited; deficiency expression common<br>
-    <b>K:</b> Buffering strained; turgor regulation impaired
+    <b>Ca:</b> Calcium delivery can fall behind demand as high VPD tightens transpiration control <br>
+    <b>Mg:</b> Magnesium uptake may lag due to water-saving responses, causing the plant to pull Mg from older tissues and increasing deficiency expression <br>
+    <b>K:</b> High VPD can strain potassium’s buffering role which can reduce effective turgor control
   `
 };
 
