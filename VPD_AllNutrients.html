@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VPD Transpiration Pull + (Preview)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="wrap">
+  <div class="card">
+
+    <header>
+      <h1>
+        VPD × TRANSPIRATION PULL
+        <span class="plus">+</span>
+        <span class="beta">(PREVIEW)</span>
+      </h1>
+      <div class="sub">
+        VPD-driven pull on the transpiration stream and stage-specific nutrient
+        delivery dynamics. Concentration requirements shift as flow changes.
+      </div>
+    </header>
+
+    <div class="controls" style="margin-top:18px">
+      <div class="control">
+        <label>Growth Stage</label>
+        <select id="stage">
+          <option value="seedling">Seedling / Recovery</option>
+          <option value="veg" selected>Vegetative</option>
+          <option value="flower">Generative (Flower)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="meterTop">
+      <div class="meterLabel">TRANSPIRATION STREAM PULL</div>
+      <div class="meterBar">
+        <div id="meterFill"></div>
+      </div>
+      <div id="meterText">—</div>
+      <div class="ionNotes" id="ionNotes"></div>
+    </div>
+
+    <div class="controls">
+      <div class="control">
+        <label>Air Temperature (°F)</label>
+        <input type="range" id="temp" min="40" max="100" value="75">
+        <div class="val" id="tempVal">75 °F</div>
+      </div>
+
+      <div class="control">
+        <label>Relative Humidity (%)</label>
+        <input type="range" id="rh" min="20" max="90" value="60">
+        <div class="val" id="rhVal">60 %</div>
+      </div>
+    </div>
+
+    <div class="nutrients">
+      <label><input type="checkbox" value="N" checked> N</label>
+      <label><input type="checkbox" value="P" checked> P</label>
+      <label><input type="checkbox" value="K" checked> K</label>
+      <label><input type="checkbox" value="Ca" checked> Ca</label>
+      <label><input type="checkbox" value="Mg" checked> Mg</label>
+      <label><input type="checkbox" value="Fe" checked> Fe</label>
+
+      <label><input type="checkbox" value="S"> S</label>
+      <label><input type="checkbox" value="Mn"> Mn</label>
+      <label><input type="checkbox" value="Zn"> Zn</label>
+      <label><input type="checkbox" value="Cu"> Cu</label>
+      <label><input type="checkbox" value="B"> B</label>
+      <label><input type="checkbox" value="Mo"> Mo</label>
+      <label><input type="checkbox" value="Cl"> Cl</label>
+      <label><input type="checkbox" value="Ni"> Ni</label>
+      <label><input type="checkbox" value="Si"> Si</label>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
