@@ -35,21 +35,23 @@ const LABELS = {
 
 const NOTES = {
   LOW: `
-    <b>Ca:</b> Delivery limited by reduced transpiration<br>
-    <b>Mg:</b> Uptake may lag behind growth demand; reliance on internal stores increases<br>
-    <b>K:</b> Largely unaffected due to high mobility
+    <b>Low VPD:</b> Reduced transpiration slows nutrient delivery rate; higher solution concentrations may be required to maintain adequate delivery <br><br>
+    <b>Ca:</b> Uptake and delivery are limited by reduced transpiration. Symptoms would expect to appear in new growth first, possibly patchy across the upper canopy <br>
+    <b>Mg:</b> Uptake may lag behind growth demand; delivery rates can suffer and reliance on internal stores increases. Deficiency symptoms may appear in older leaves despite adequate substrate levels due to weak delivery rates<br>
+    <b>K:</b> Uptake may lag behind growth demand; delivery rates can suffer and reliance on internal stores increases. Deficiency symptoms may appear in older leaves despite adequate substrate levels due to weak delivery rates. Higher relative levels, and higher relative mobility mean this can show after Mg in balanced substrates
   `,
   ELEVATED: `
     <b>Intermediate / Target (For Healthy Plants)</b><br>
-    Transpiration is active but regulated to maintain hydraulic stability.<br>
-    <b>Ca:</b> Delivery increasingly depends on local transpiration rates<br>
-    <b>Mg:</b> Delivery rate can become limiting in fast-growing tissues<br>
-    <b>K:</b> Mobile buffering maintains osmotic and turgor control
+    Transpiration demand is sufficient to drive nutrient delivery. The increased pull on the transpiration stream stimulates the plant to more actively begin regulating transpiration. If an issue occurs here, though, something else is often out of balance besides general VPD <br>
+    <b>Ca:</b> Transpiration-driven delivery generally keeps pace with demand. However, it can become locally limiting in rapidly expanding tissues. If a broader deficiency occurs here it could be due to low substrate levels or soil antagonisms<br>
+    <b>Mg:</b> Delivery generally keeps pace with demand, but may lag locally in fast-growing tissues. If a broader deficiency occurs in this range it's often due to low substrate levels or soil antagonisms <br>
+    <b>K:</b> Delivery generally keeps pace with demand. High relative mobility can delay symptom expression. If symptoms show, it's often due to low levels or soil antagonims, though local antagonisms can still occur
   `,
   EXCESSIVE: `
-    <b>Ca:</b> Delivery may fall behind demand as stomatal control tightens<br>
-    <b>Mg:</b> Uptake may lag due to water-saving responses; deficiency expression increases; plant may rely more on internal stores<br>
-    <b>K:</b> Buffering capacity becomes strained, reducing effective turgor control
+    <b>High VPD:</b> Higher transpiration increases nutrient delivery rate; lower concentrations may achieve the same delivery. Higher regulation of transpiration can introduce local limitations <br><br>
+    <b>Ca:</b> Uptake may lag due to water-saving responses. Staying in this range can increase deficiency pressure <br>
+    <b>Mg:</b> Uptake may lag due to water-saving responses; deficiency expression increases and reliance on internal stores becomes more pronounced<br>
+    <b>K:</b> Uptake may lag due to water-saving responses; deficiency expression increases and reliance on internal stores becomes more pronounced. K is relatively more mobile so buffering is often stronger.  
   `
 };
 
