@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <title>Breeder’s Equation — Selection Response</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+
+  <!-- LINK TO CSS -->
+  <link rel="stylesheet" href="BreedersEquation.css">
 </head>
+
 <body>
 
 <main class="page">
@@ -61,44 +64,40 @@
         <ol>
           <li>
             <strong>Evaluate environmental stability.</strong>
-            If the trait changes markedly with light, nutrition, or other growing
-            conditions, assume a lower h². If the trait remains similar across
-            environments, assume a higher h².
+            Strong environmental sensitivity → lower h².
+            Stable expression across environments → higher h².
           </li>
 
           <li>
             <strong>Consider parent–offspring resemblance.</strong>
-            If offspring reliably resemble selected parents for this trait, h²
-            should be set higher. If resemblance is weak or inconsistent, h²
-            should be lower.
+            Consistent resemblance → higher h².
+            Weak or inconsistent resemblance → lower h².
           </li>
 
           <li>
             <strong>Assess response to selection over time.</strong>
-            If repeated selection produces predictable shifts in the population
-            mean, h² is likely moderate to high. If gains are erratic or regress
-            quickly, h² is likely low.
+            Predictable population shifts → moderate to high h².
+            Erratic or regressing gains → low h².
           </li>
 
           <li>
             <strong>Judge environmental dominance.</strong>
-            If environmental variation overwhelms genetic differences between
-            individuals, h² should be low. If genetic differences remain apparent
-            despite environmental noise, h² should be higher.
+            If environment overwhelms genetic differences → low h².
+            If genetic differences persist despite noise → higher h².
           </li>
         </ol>
 
         <p class="ranges">
           <strong>Practical guide:</strong><br>
-          Low h² (≈ 0.1–0.2): environment-driven, weak or inconsistent response<br>
+          Low h² (≈ 0.1–0.2): environment-driven, inconsistent response<br>
           Moderate h² (≈ 0.3–0.5): mixed genetic and environmental control<br>
-          High h² (≥ 0.6): genetically stable, predictable response to selection
+          High h² (≥ 0.6): genetically stable, predictable response
         </p>
 
         <p class="note">
-          Because h² is inferred from observation rather than directly measured,
-          the predicted response (R) should be interpreted as an
-          <strong>expectation</strong>, not a guarantee. However, over successive generations, observed selection response progressively refines h², making it increasingly accurate. For the first generation though, without prior data, you have to use your best estimate.
+          Over successive generations, observed selection response progressively
+          refines h², making it increasingly accurate. For the first generation,
+          without prior data, h² must be estimated using informed judgment.
         </p>
 
       </div>
@@ -132,6 +131,7 @@
 
 </main>
 
-<script src="script.js"></script>
+<!-- LINK TO JS -->
+<script src="BreedersEquation.js"></script>
 </body>
 </html>
