@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Breeder’s Equation — Selection Response</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<main class="page">
+
+  <header class="header">
+    <h1>Breeder’s Equation</h1>
+    <p class="subtitle">Predicting response to selection in quantitative traits</p>
+  </header>
+
+  <section class="section">
+    <h2>Population</h2>
+
+    <div class="grid">
+      <label>
+        Population size (N)
+        <input type="number" id="popSize" min="1" placeholder="e.g. 48">
+      </label>
+
+      <label>
+        Population mean (Uₚ)
+        <input type="number" id="popMean" step="any" placeholder="e.g. 5.6">
+      </label>
+
+      <label>
+        Selected mean (Uₛ)
+        <input type="number" id="selMean" step="any" placeholder="e.g. 7.9">
+      </label>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Genetic Assumptions</h2>
+
+    <label class="wide">
+      Narrow-sense heritability (h²)
+      <input type="number" id="heritability" step="0.01" min="0" max="1" placeholder="0.0 – 1.0">
+    </label>
+
+    <p class="note">
+      If no prior population data exist, h² must be estimated from observation.
+    </p>
+
+    <details class="disclosure">
+      <summary>How to estimate h²</summary>
+      <div class="disclosure-body">
+
+        <p>
+          This approximation is a <strong>guesstimate</strong>, not a random guess.
+          To determine h² in the absence of formal population data, start from
+          direct observation and work through the following logic:
+        </p>
+
+        <ol>
+          <li>
+            <strong>Evaluate environmental stability.</strong>
+            If the trait changes markedly with light, nutrition, or other growing
+            conditions, assume a lower h². If the trait remains similar across
+            environments, assume a higher h².
+          </li>
+
+          <li>
+            <strong>Consider parent–offspring resemblance.</strong>
+            If offspring reliably resemble selected parents for this trait, h²
+            should be set higher. If resemblance is weak or inconsistent, h²
+            should be lower.
+          </li>
+
+          <li>
+            <strong>Assess response to selection over time.</strong>
+            If repeated selection produces predictable shifts in the population
+            mean, h² is likely moderate to high. If gains are erratic or regress
+            quickly, h² is likely low.
+          </li>
+
+          <li>
+            <strong>Judge environmental dominance.</strong>
+            If environmental variation overwhelms genetic differences between
+            individuals, h² should be low. If genetic differences remain apparent
+            despite environmental noise, h² should be higher.
+          </li>
+        </ol>
+
+        <p class="ranges">
+          <strong>Practical guide:</strong><br>
+          Low h² (≈ 0.1–0.2): environment-driven, weak or inconsistent response<br>
+          Moderate h² (≈ 0.3–0.5): mixed genetic and environmental control<br>
+          High h² (≥ 0.6): genetically stable, predictable response to selection
+        </p>
+
+        <p class="note">
+          Because h² is inferred from observation rather than directly measured,
+          the predicted response (R) should be interpreted as an
+          <strong>expectation</strong>, not a guarantee. However, over successive generations, observed selection response progressively refines h², making it increasingly accurate. For the first generation though, without prior data, you have to use your best estimate.
+        </p>
+
+      </div>
+    </details>
+  </section>
+
+  <section class="section results">
+    <h2>Calculated Outcomes</h2>
+
+    <div class="result-row">
+      <span>Selection differential (S)</span>
+      <span id="S">—</span>
+    </div>
+
+    <div class="result-row">
+      <span>Response to selection (R)</span>
+      <span id="R">—</span>
+    </div>
+
+    <div class="result-row emphasis">
+      <span>Predicted next-generation mean</span>
+      <span id="nextMean">—</span>
+    </div>
+
+    <div id="warning" class="warning"></div>
+  </section>
+
+  <footer class="footer">
+    R = h² × S
+  </footer>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
