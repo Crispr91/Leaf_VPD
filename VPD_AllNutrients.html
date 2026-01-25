@@ -1,14 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>VPD + Transport Context</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ✅ CSS LINK (CRITICAL) -->
+  <link rel="stylesheet" href="VPD_AllNutrients.css">
+</head>
+
+<body>
+
 <div class="wrap">
   <div class="card">
 
-<header>
-  <h1 class="title">
-    VPD <span class="plus">+</span>
-  </h1>
-  <div class="sub">
-    VPD interpreted through nutrient delivery, utilization, and failure modes
-  </div>
-</header>
+    <header>
+      <h1 class="title">
+        VPD <span class="plus">+</span>
+      </h1>
+      <div class="sub">
+        VPD interpreted through nutrient delivery, utilization, and failure modes
+      </div>
+    </header>
 
     <div class="controls">
       <div>
@@ -58,13 +71,13 @@
       Select nutrients to view delivery status.
     </div>
 
-    <!-- Nutrient Read-Me (existing) -->
+    <!-- Nutrient Read-Me -->
     <details id="readmeBox" style="display:none">
       <summary>Read-Me: Nutrient Transport Context</summary>
       <div class="readme" id="readmeContent"></div>
     </details>
 
-    <!-- NEW: Physiology Read-Me -->
+    <!-- Physiology Read-Me -->
     <details id="physReadmeBox">
       <summary>Read-Me: Transpiration-Linked Plant Physiology</summary>
       <div class="readme" id="physReadmeContent"></div>
@@ -72,3 +85,9 @@
 
   </div>
 </div>
+
+<!-- ✅ JS LINK (PLACED AT END ON PURPOSE) -->
+<script src="VPD_AllNutrients.js"></script>
+
+</body>
+</html>
