@@ -1,75 +1,74 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>VPD × Transpiration Pull</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="wrap">
+  <div class="card">
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="VPD_Transpiration.css">
-</head>
-
-<body>
-  <div class="wrap">
-    <div class="card">
-
-      <header>
-        <h1>VPD × TRANSPIRATION PULL</h1>
-        <div class="sub">
-          Visualizing how VPD alone modulates transpiration demand and nutrient transport pressure.
-        </div>
-      </header>
-
-      <div class="controls">
-        <label>
-          AIR TEMPERATURE
-          <input type="range" id="temp" min="60" max="95" step="1" value="78">
-          <div class="val" id="tempVal"></div>
-        </label>
-
-        <label>
-          RELATIVE HUMIDITY
-          <input type="range" id="rh" min="30" max="90" step="1" value="55">
-          <div class="val" id="rhVal"></div>
-        </label>
-
-        <label>
-          GROWTH STAGE
-          <select id="stage">
-            <option value="seedling">Seedling</option>
-            <option value="veg" selected>Vegetative</option>
-            <option value="flower">Flowering</option>
-          </select>
-        </label>
-      </div>
-
-      <div class="meterTop">
-        <div class="meterLabel">TRANSPIRATION LOAD</div>
-        <div class="meterBar">
-          <div id="meterFill"></div>
-        </div>
-        <div id="meterText"></div>
-      </div>
-
-      <div class="nutrients">
-        <label><input type="checkbox" value="N"> N</label>
-        <label><input type="checkbox" value="P"> P</label>
-        <label><input type="checkbox" value="K"> K</label>
-        <label><input type="checkbox" value="Ca"> Ca</label>
-        <label><input type="checkbox" value="Mg"> Mg</label>
-        <label><input type="checkbox" value="S"> S</label>
-        <label><input type="checkbox" value="Fe"> Fe</label>
-        <label><input type="checkbox" value="Mn"> Mn</label>
-        <label><input type="checkbox" value="B"> B</label>
-        <label><input type="checkbox" value="Zn"> Zn</label>
-      </div>
-
-      <div class="ionNotes" id="ionNotes"></div>
-
-    </div>
+<header>
+  <h1 class="title">
+    VPD <span class="plus">+</span>
+  </h1>
+  <div class="sub">
+    VPD interpreted through nutrient delivery, utilization, and failure modes
   </div>
+</header>
 
-  <!-- JS -->
-  <script src="VPD_Transpiration.js"></script>
-</body>
-</html>
+    <div class="controls">
+      <div>
+        <label>Temperature</label>
+        <input id="temp" type="range" min="45" max="100" value="80">
+        <div class="val" id="tempVal"></div>
+      </div>
+
+      <div>
+        <label>Relative Humidity</label>
+        <input id="rh" type="range" min="10" max="95" value="55">
+        <div class="val" id="rhVal"></div>
+      </div>
+
+      <div>
+        <label>Growth Stage</label>
+        <select id="stage">
+          <option value="seedling">Seedling / Recovery</option>
+          <option value="veg" selected>Vegetative</option>
+          <option value="flower">Generative (Flower)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="meterTop">
+      <div class="meterLabel">TRANSPIRATION STREAM LOAD</div>
+      <div class="meterBar">
+        <div id="meterFill"></div>
+      </div>
+      <div id="meterText"></div>
+    </div>
+
+    <div class="nutrients">
+      <label><input type="checkbox" value="N"> N</label>
+      <label><input type="checkbox" value="P"> P</label>
+      <label><input type="checkbox" value="K"> K</label>
+      <label><input type="checkbox" value="Ca"> Ca</label>
+      <label><input type="checkbox" value="Mg"> Mg</label>
+      <label><input type="checkbox" value="S"> S</label>
+      <label><input type="checkbox" value="Fe"> Fe</label>
+      <label><input type="checkbox" value="Mn"> Mn</label>
+      <label><input type="checkbox" value="B"> B</label>
+      <label><input type="checkbox" value="Zn"> Zn</label>
+    </div>
+
+    <div id="ionNotes">
+      Select nutrients to view delivery status.
+    </div>
+
+    <!-- Nutrient Read-Me (existing) -->
+    <details id="readmeBox" style="display:none">
+      <summary>Read-Me: Nutrient Transport Context</summary>
+      <div class="readme" id="readmeContent"></div>
+    </details>
+
+    <!-- NEW: Physiology Read-Me -->
+    <details id="physReadmeBox">
+      <summary>Read-Me: Transpiration-Linked Plant Physiology</summary>
+      <div class="readme" id="physReadmeContent"></div>
+    </details>
+
+  </div>
+</div>
