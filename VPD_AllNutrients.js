@@ -99,25 +99,25 @@ document.addEventListener("DOMContentLoaded", () => {
 <i>(Mechanisms driven by water flux, independent of feeding)</i><br><br>
 
 <b>Carbon access through stomata</b><br>
-Transpiration and stomatal conductance are coupled, but CO₂ diffusion depends on both stomatal openness and the surrounding vapor pressure gradient. When VPD is very low, transpiration is weak and gas exchange becomes inefficient; when VPD is very high, stomata partially close to limit water loss. In both cases, photosynthesis is constrained despite adequate light and nutrients.
+Transpiration and stomatal conductance are coupled, but CO₂ diffusion depends on both stomatal openness and the surrounding vapor pressure gradient. When VPD is very low, transpiration is weak and gas exchange becomes inefficient; when VPD is very high, stomata partially close to limit water loss. In both cases, photosynthesis is constrained despite adequate light and nutrients.<br>
 Example: A room run at very low VPD shows slow growth even under high-PPFD LEDs because CO₂ diffusion into the leaf, not light or nutrition, is limiting carbon fixation.
 
 <br><br>
 
 <b>Turgor pressure & cell expansion (Lockhart + acid growth)</b><br>
-Cell expansion requires positive turgor pressure and a yielding cell wall. Auxin-driven acid growth increases wall extensibility, but expansion only occurs when transpiration maintains sufficient hydraulic pressure to drive water into expanding cells. Misaligned VPD breaks this coupling and slows growth.
-Example: Plants grown in persistently humid, low-VPD LED rooms often stack tight nodes and thicken stems but fail to elongate because cell walls loosen while hydraulic drive remains insufficient for sustained expansion.
+Cell expansion requires positive turgor pressure and a yielding cell wall. Auxin-driven acid growth increases wall extensibility, but expansion only occurs when transpiration maintains sufficient hydraulic pressure to drive water into expanding cells. Misaligned VPD breaks this coupling and slows growth.<br>
+Example: Plants grown in persistently humid, low-VPD LED rooms often show reduced internode elongation and compact growth because hydraulic drive for cell expansion is limited.
 
 <br><br>
 
 <b>Leaf thermal regulation</b><br>
-Transpiration cools the leaf via evaporative heat loss and helps stabilize leaf temperature relative to the surrounding air. Under high VPD, evaporative demand increases and partial stomatal closure can reduce cooling efficiency while increasing hydraulic strain, even when radiant heat load is low.
+Transpiration cools the leaf via evaporative heat loss and helps stabilize leaf temperature relative to the surrounding air. Under high VPD, evaporative demand increases and partial stomatal closure can reduce cooling efficiency while increasing hydraulic strain, even when radiant heat load is low.<br>
 Example: In high-PPFD LED environments, plants at high VPD may show stress responses and reduced photosynthetic efficiency not because leaves overheat, but because evaporative cooling becomes unstable and hydraulically costly despite acceptable air temperatures.
 
 <br><br>
 
 <b>Hydraulic continuity & recovery capacity</b><br>
-Sustained transpiration maintains continuous water flow from root to leaf. Repeated over-pull under high VPD increases xylem tension and reduces the plant’s recovery margin during transient stress events.
+Sustained transpiration maintains continuous water flow from root to leaf. Repeated over-pull under high VPD increases xylem tension and reduces the plant’s recovery margin during transient stress events.<br>
 Example: Plants grown at chronically high VPD under LEDs may appear vigorous but wilt quickly after short dry-backs because elevated xylem tension limits how rapidly hydraulic continuity can be restored.
 `;
   }
