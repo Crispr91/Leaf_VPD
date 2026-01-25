@@ -1,0 +1,112 @@
+<!doctype html> 
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Broad-Sense Heritability — Variance Partitioning</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="BroadSenseHeritability.css">
+</head>
+
+<body>
+
+<main class="page">
+
+  <header class="header">
+    <h1>Broad-Sense Heritability</h1>
+    <p class="subtitle">Estimating cumulative genetic contribution (epistasis, dominanace, additive, etc.), compared to environment, using clones. Narrow-Sense Heritability asks, "How much can we change this population with selection?" Broad-Sense Heritability asks, "How much of what I'm observing is genetic vs environment?</p>
+  </header>
+
+  <section class="section">
+    <h2>Population Structure</h2>
+
+    <div class="grid">
+      <label>
+        Total population size (N)
+        <input type="number" id="N" min="1" placeholder="e.g. 96">
+      </label>
+
+      <label>
+        Number of genotypes (G)
+        <input type="number" id="G" min="1" placeholder="e.g. 12">
+      </label>
+
+      <label>
+        Clones per genotype (k)
+        <input type="number" id="k" min="1" placeholder="e.g. 8">
+      </label>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Trait Statistics</h2>
+
+    <div class="grid">
+      <label>
+        Variance of genotype means/averages (VG)
+        <input type="number" id="VG" step="any" placeholder="Between-genotype variance">
+      </label>
+
+      <label>
+        Mean/Average of within-genotype variance (VE)
+        <input type="number" id="VE" step="any" placeholder="Clone-to-clone variance">
+      </label>
+    </div>
+
+    <details class="disclosure">
+      <summary>How to interpret these inputs</summary>
+      <div class="disclosure-body">
+
+        <p>
+          Broad-sense heritability (H²) partitions phenotypic variance using
+          clones. Genetic variance is inferred from differences
+          between genotype means/averages, while environmental variance is inferred from
+          variation among clones of the same genotype. Basically, it helps answer: How much of the observed variation in a trait is attributable to genetics versus environmental effects, and therefore whether genetic selection is expected to meaningfully change the traitif the environment stays the same.
+        </p>
+
+        <ol>
+          <li>
+            <strong>V<sub>G</sub> (genetic variance)</strong> is the variance of mean trait values across distinct genotypes.
+          </li>
+
+          <li>
+            <strong>V<sub>E</sub> (environmental variance)</strong> is the average
+            variance observed among clones within each genotype.
+          </li>
+        </ol>
+
+        <p class="note">
+          As replication increases and environmental noise is averaged out,
+          estimates of H² become more stable and interpretable.
+        </p>
+
+      </div>
+    </details>
+  </section>
+
+  <section class="section results">
+    <h2>Calculated Outcomes</h2>
+
+    <div class="result-row">
+      <span>Total phenotypic variance (V<sub>P</sub>)</span>
+      <span id="VP">—</span>
+    </div>
+
+    <div class="result-row emphasis">
+      <span>Broad-sense heritability (H²)</span>
+      <span id="H2">—</span>
+    </div>
+
+    <div id="interpretation" class="interpretation"></div>
+    <div id="warning" class="warning"></div>
+  </section>
+
+  <footer class="footer">
+    H² = V<sub>G</sub> / (V<sub>G</sub> + V<sub>E</sub>)
+  </footer>
+
+</main>
+
+<script src="BroadSenseHeritability.js"></script>
+</body>
+</html>
