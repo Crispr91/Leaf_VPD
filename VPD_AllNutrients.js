@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- ELEMENTS ---------- */
-  const tempEl  = document.getElementById("temp");
-  const rhEl    = document.getElementById("rh");
-  const stageEl = document.getElementById("stage");
+  const tempEl      = document.getElementById("temp");
+  const leafTempEl  = document.getElementById("leafTemp");
+  const rhEl        = document.getElementById("rh");
+  const stageEl     = document.getElementById("stage");
 
-  const tempVal = document.getElementById("tempVal");
-  const rhVal   = document.getElementById("rhVal");
+  const tempVal     = document.getElementById("tempVal");
+  const leafTempVal = document.getElementById("leafTempVal");
+  const rhVal       = document.getElementById("rhVal");
 
   const meterFill = document.getElementById("meterFill");
   const meterText = document.getElementById("meterText");
@@ -16,11 +18,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const readmeBox     = document.getElementById("readmeBox");
   const readmeContent = document.getElementById("readmeContent");
-
   const physReadmeContent = document.getElementById("physReadmeContent");
 
   /* ---------- HARD GUARDS ---------- */
-  if (!tempEl || !rhEl || !tempVal || !rhVal || !meterFill || !meterText || !ionNotes) {
+  if (!tempEl || !leafTempEl || !rhEl || !tempVal || !leafTempVal || !rhVal || !meterFill || !meterText || !ionNotes) {
     console.error("Critical DOM elements missing. JS aborted.");
     return;
   }
@@ -30,10 +31,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return 0.6108 * Math.exp((17.27 * Tc) / (Tc + 237.3));
   }
 
-  function leafVPD(tempF, rh){
-    const airTc  = (tempF - 32) * 5 / 9;
-    const leafTc = airTc + (2 * 5 / 9); // +2°F leaf offset
-    return svp(leafTc) * (1 - rh / 100);
+  // UPDATED: explicit leaf + air temps
+  function leafVPD(airTempF, leafTempF, rh){
+    const airTc  = (airTempF  - 32) * 5 / 9;
+    const leafTc = (leafTempF - 32) * 5 / 9;
+    const avp    = svp(airTc) * (rh / 100);
+    return svp(leafTc) - avp;
   }
 
   /* ---------- STAGES ---------- */
@@ -45,31 +48,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ---------- NUTRIENT TRANSPORT MODES ---------- */
   const NOT_TRANSPIRATION_COUPLED = new Set([
-    "P",
-    "Fe",
-    "Zn"
-    // add "Mn" here if desired
+    "P","Fe","Zn"
   ]);
 
   /* ---------- SHORT NOTES ---------- */
   const NOTES = {
     LOW: n => `<b>${n}:</b> Low delivery rate`,
-
-    TARGET: n =>
-      `<b>${n}:</b> Delivery matches physiological demand`,
-
+    TARGET: n => `<b>${n}:</b> Delivery matches physiological demand`,
     EXCESSIVE: n => {
       if (n === "N") {
         return `<b>N:</b> Delivery can be high, and begin to exceed assimilation/use capacity`;
       }
       return `<b>${n}:</b> High delivery rate`;
     },
-
     NOT_COUPLED: n =>
       `<b>${n}:</b> Uptake is not strongly coupled to transpiration`
   };
 
-  /* ---------- README (VERBATIM, PRESERVED) ---------- */
+  /* ---------- README (VERBATIM) ---------- */
   const README = {
     N: `<b>Nitrogen:</b> Nitrogen uptake and nitrogen use are not the same process. Nitrate can be taken up and transported rapidly under high transpiration, but assimilation into amino acids requires enzymes, carbon skeletons, energy, and time. When delivery exceeds assimilation capacity, nitrogen becomes diluted in expanding tissues or lost from the root zone. Adjust by moderating VPD, improving carbon supply, or aligning nitrogen strength with growth rate.`,
 
@@ -134,18 +130,20 @@ Example: Plants grown at chronically high VPD under LEDs may appear vigorous but
 
   /* ---------- UPDATE ---------- */
   function update(){
-    const temp = +tempEl.value;
-    const rh   = +rhEl.value;
+    const airTemp  = +tempEl.value;
+    const leafTemp = +leafTempEl.value;
+    const rh       = +rhEl.value;
+
+    tempVal.textContent      = `${airTemp} °F`;
+    leafTempVal.textContent  = `${leafTemp} °F`;
+    rhVal.textContent        = `${rh} %`;
 
     const stage =
       stageEl && STAGES[stageEl.value]
         ? stageEl.value
         : "veg";
 
-    tempVal.textContent = `${temp} °F`;
-    rhVal.textContent   = `${rh} %`;
-
-    const vpd = leafVPD(temp, rh);
+    const vpd = leafVPD(airTemp, leafTemp, rh);
     const res = classify(vpd, STAGES[stage]);
 
     meterFill.style.width = `${Math.round(20 + res.load * 75)}%`;
@@ -174,7 +172,7 @@ Example: Plants grown at chronically high VPD under LEDs may appear vigorous but
   }
 
   /* ---------- EVENTS ---------- */
-  [tempEl, rhEl, stageEl, ...nutrientChecks]
+  [tempEl, leafTempEl, rhEl, stageEl, ...nutrientChecks]
     .filter(Boolean)
     .forEach(el => el.addEventListener("input", update));
 
