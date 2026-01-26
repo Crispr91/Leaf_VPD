@@ -28,7 +28,6 @@ body{
   padding:24px;
 }
 
-/* UPDATED HEADER STYLES */
 header .title{
   font-style:italic;
   margin:0;
@@ -38,7 +37,7 @@ header .title{
 }
 
 header .title .plus{
-  font-style:italic;              /* keep for semantics */
+  font-style:italic;
   font-size:1.2em;
   line-height:0;
   margin-left:-14px;
@@ -46,7 +45,6 @@ header .title .plus{
   vertical-align:middle;
   transform:translateY(-17px) skewX(-14deg);
 }
-
 
 .sub{
   margin-top:10px;
