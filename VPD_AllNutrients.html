@@ -4,8 +4,6 @@
   <meta charset="utf-8">
   <title>VPD + Transport Context</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- ✅ CSS LINK (CRITICAL) -->
   <link rel="stylesheet" href="VPD_AllNutrients.css">
 </head>
 
@@ -19,15 +17,22 @@
         VPD <span class="plus">+</span>
       </h1>
       <div class="sub">
-        VPD interpreted through nutrient delivery, utilization, and failure modes
+        VPD with Notes on Nutrient Uptake, Hormones, etc. Relevent to Transpiration Flow
       </div>
     </header>
 
     <div class="controls">
       <div>
-        <label>Temperature</label>
+        <label>Air Temperature</label>
         <input id="temp" type="range" min="45" max="100" value="80">
         <div class="val" id="tempVal"></div>
+      </div>
+
+      <!-- ✅ ADDED -->
+      <div>
+        <label>Leaf Temperature</label>
+        <input id="leafTemp" type="range" min="45" max="110" value="82">
+        <div class="val" id="leafTempVal"></div>
       </div>
 
       <div>
@@ -71,13 +76,11 @@
       Select nutrients to view delivery status.
     </div>
 
-    <!-- Nutrient Read-Me -->
     <details id="readmeBox" style="display:none">
       <summary>Read-Me: Nutrient Transport Context</summary>
       <div class="readme" id="readmeContent"></div>
     </details>
 
-    <!-- Physiology Read-Me -->
     <details id="physReadmeBox">
       <summary>Read-Me: Transpiration-Linked Plant Physiology</summary>
       <div class="readme" id="physReadmeContent"></div>
@@ -86,8 +89,6 @@
   </div>
 </div>
 
-<!-- ✅ JS LINK (PLACED AT END ON PURPOSE) -->
 <script src="VPD_AllNutrients.js"></script>
-
 </body>
 </html>
