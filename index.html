@@ -92,12 +92,37 @@
       margin-top:64px;
       display:flex;
       justify-content:space-between;
-      gap:12px;
+      gap:16px;
       flex-wrap:wrap;
       font-family:var(--mono);
       font-size:12px;
       color:var(--muted);
       opacity:.7;
+    }
+
+    /* === SOCIAL ICON LINKS === */
+    .social-links{
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+
+    .social-links a{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      color:var(--muted);
+      text-decoration:none;
+    }
+
+    .social-links svg{
+      width:16px;
+      height:16px;
+      fill:currentColor;
+    }
+
+    .social-links a:hover{
+      color:var(--accent);
     }
   </style>
 </head>
@@ -182,6 +207,32 @@
 
     <footer>
       <span>Mainely AG</span>
+
+      <div class="social-links">
+
+        <a href="https://www.instagram.com/mainelyog/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24">
+            <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm6.5-.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+          </svg>
+          Instagram
+        </a>
+
+        <a href="https://www.facebook.com/MainelyOG" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M13 3h4V0h-4c-3.3 0-6 2.7-6 6v3H4v4h3v11h4V13h4l1-4h-5V6c0-1.1.9-2 2-2z"/>
+          </svg>
+          Facebook
+        </a>
+
+        <a href="https://discord.gg/gmhTXcTXt" target="_blank" rel="noopener" aria-label="Discord">
+          <svg viewBox="0 0 24 24">
+            <path d="M20 4.5A19.8 19.8 0 0 0 15.5 3l-.2.4a18.2 18.2 0 0 1 4.3 2.1A15.3 15.3 0 0 0 12 3a15.3 15.3 0 0 0-7.6 2.5A18.2 18.2 0 0 1 8.7 3.4L8.5 3A19.8 19.8 0 0 0 4 4.5C1.1 8.7.4 12.7.8 16.6A19.9 19.9 0 0 0 6.2 19l1.2-1.9a12.6 12.6 0 0 1-2.1-1l.5-.4a14.9 14.9 0 0 0 12.4 0l.5.4a12.6 12.6 0 0 1-2.1 1L17.8 19a19.9 19.9 0 0 0 5.4-2.4c.4-3.9-.3-7.9-3.2-12.1zM9.5 14.5c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8c.9 0 1.6.8 1.6 1.8s-.7 1.8-1.6 1.8zm5 0c-.9 0-1.6-.8-1.6-1.8s.7-1.8 1.6-1.8c.9 0 1.6.8 1.6 1.8s-.7 1.8-1.6 1.8z"/>
+          </svg>
+          Discord
+        </a>
+
+      </div>
+
       <span>Less is More • Scarcity Optimizes Biological Systems</span>
     </footer>
 
